@@ -14,14 +14,20 @@ interface Product {
 
 export default function ProductCatalog() {
   const handleAddToCart = (product: (typeof products)[0]) => {
-    const productwithQuantity = { ...product, quantity: 1 };
-    localStorage.setItem(
-      "cart",
-      JSON.stringify([
-        ...JSON.parse(localStorage.getItem("cart") || "[]"),
-        productwithQuantity,
-      ])
+    const existingCart = JSON.parse(localStorage.getItem("cart") || "[]");
+    const existingProductIndex = existingCart.findIndex(
+      (item) => item.id === product.id 
     );
+
+    if (existingProductIndex >= 0) {
+      existingCart[existingProductIndex].quantity += 1;
+    } else {
+      const productWithQuantity = { ...product, quantity: 1 };
+      existingCart.push(productWithQuantity);
+    }
+
+    localStorage.setItem("cart", JSON.stringify(existingCart));
+
     toast.success(`${product.name} foi adicionado ao carrinho`, {
       description: `Preço: $${product.price.toFixed(2)}`,
     });

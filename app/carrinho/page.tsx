@@ -40,6 +40,9 @@ export default function Component() {
 
   const saveChanges = () => { // função para salvar as alterações
     localStorage.setItem("cart", JSON.stringify(products))
+    toast.success(`Tudo certo! 🎉`, {
+      description: `O produto foi adicionado ao carrinho com sucesso!`,
+    });
   }
 
   const proceedToPurchase = async () => { 
@@ -134,7 +137,7 @@ export default function Component() {
           <Button onClick={saveChanges} className="flex-1">
             <Save className="mr-2 h-4 w-4" /> Salvar Alterações
           </Button>
-          <Button onClick={proceedToPurchase} className="flex-1">
+          <Button disabled={products.length === 0} onClick={proceedToPurchase} className="flex-1">
             {isLoading ? (
               <span className="text-white text-sm">Carregando...</span>
             ) : (
