@@ -1,10 +1,10 @@
-"use client";
+"use client"; 
 import { useEffect, useState } from "react";
 import { Menu, ShoppingCart, Phone } from "lucide-react";
-import { Toaster, toast } from "sonner";
+import { Toaster, toast } from "sonner"; 
 import { Button } from "@/components/ui/button";
 import { products } from "@/Api/ProductMock";
-interface Product {
+interface Product { // interface para definir o tipo de produto
   id: number;
   name: string;
   description: string;
@@ -12,28 +12,28 @@ interface Product {
   quantity: number;
 }
 
-export default function ProductCatalog() {
+export default function ProductCatalog() { // função para exibir o catálogo de produtos
   const handleAddToCart = (product: (typeof products)[0]) => {
     const existingCart = JSON.parse(localStorage.getItem("cart") || "[]");
     const existingProductIndex = existingCart.findIndex(
-      (item) => item.id === product.id 
+      (item: Product) => item.id === product.id 
     );
 
-    if (existingProductIndex >= 0) {
+    if (existingProductIndex >= 0) { // se o produto já existir no carrinho, incrementa a quantidade
       existingCart[existingProductIndex].quantity += 1;
-    } else {
+    } else { // se o produto não existir no carrinho, adiciona o produto
       const productWithQuantity = { ...product, quantity: 1 };
       existingCart.push(productWithQuantity);
     }
 
-    localStorage.setItem("cart", JSON.stringify(existingCart));
+    localStorage.setItem("cart", JSON.stringify(existingCart)); // salva o carrinho no localStorage
 
-    toast.success(`${product.name} foi adicionado ao carrinho`, {
+    toast.success(`${product.name} foi adicionado ao carrinho`, { // exibe uma mensagem de sucesso
       description: `Preço: $${product.price.toFixed(2)}`,
     });
   };
 
-  return (
+  return ( // retorna o catálogo de produtos
     <div className="min-h-screen bg-gray-100">
       <main className="max-w-7xl mx-auto py-6 sm:px-6 lg:px-8">
         <div className="px-4 py-6 sm:px-0">
@@ -59,7 +59,7 @@ export default function ProductCatalog() {
                   </h3>
                   <p className="mt-1 text-gray-600">{product.description}</p>
                   <p className="mt-2 text-xl font-bold text-gray-900">
-                    ${product.price.toFixed(2)}
+                    R${product.price.toFixed(2)}
                   </p>
                   <div className="mt-4">
                     <Button

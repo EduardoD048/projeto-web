@@ -1,14 +1,14 @@
 "use client"
-import { Menu, Phone, ShoppingCart } from "lucide-react"
+import { Menu, ShoppingCart, ShoppingBasket } from "lucide-react"
 import {NavLink} from './nav-link'
 
 const routes = [
   { path: "/", label: "Home", icon: null }, // adiciona o link para a página inicial
   { path: "/carrinho", label: "Carrinho", icon: <ShoppingCart className="h-5 w-5 mr-1" /> }, // adiciona o link para a página de carrinho
-  { path: "/compras", label: "Compras", icon: <ShoppingCart className="h-5 w-5 mr-1" /> }, // adiciona o link para a página de compras
+  { path: "/compras", label: "Compras", icon: <ShoppingBasket className="h-5 w-5 mr-1" /> }, // adiciona o link para a página de compras
 ];
 
-export function Header() {
+export function Header() { // função para exibir o cabeçalho 
   return (
     <nav className="bg-white shadow-md">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -18,7 +18,7 @@ export function Header() {
           </div>
 
           <div className="hidden sm:ml-6 sm:flex sm:space-x-8">
-            {routes.map((route) => (
+            {routes.map((route) => ( // mapeia os links
               <NavLink
                 key={route.path}
                 path={route.path}

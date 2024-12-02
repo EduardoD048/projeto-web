@@ -4,7 +4,7 @@ import { Button } from "@/components/ui/button";
 import { toast } from "sonner";
 import { useRouter } from 'next/navigation';
 
-interface Product {
+interface Product { // interface para definir o tipo de produto
   id: number
   name: string
   description: string
@@ -13,51 +13,50 @@ interface Product {
   quantity: number
 }
 
-export default function ComprasPage() {
-  const [isLoading, setIsLoading] = useState(true)
-  const [products, setProducts] = useState<Product[] | null>(null)
-  const router = useRouter(); 
+export default function ComprasPage() { 
+  const [isLoading, setIsLoading] = useState(true) // useState para verificar se a página está carregando
+  const [products, setProducts] = useState<Product[] | null>(null) // useState para armazenar os produtos
+  const router = useRouter();  // cria uma instacia do router para navegar entre as páginas
   
-  useEffect(() => {
+  useEffect(() => { // faz o fetch do front com o back
     fetch(`http://localhost:8080/purchase`, {
       method: 'GET',
       headers: {
         'Content-Type': 'application/json',
       },
-    }).then(async (response) => {
+    }).then(async (response) => { // pega a resposta do back
       if (!response.ok) {
         throw new Error('Falha ao carregar as compras')
       }
 
-      const data = await response.json()
+      const data = await response.json() // pega os dados da resposta
 
-      const allProducts = data.flatMap(item => item.products || []);
+      const allProducts = data.flatMap(item => item.products || []); // mapeia os produtos
       setProducts(allProducts)
     }).catch((err) => {
       console.log(err)
-    }).finally(() => {
+    }).finally(() => { // finaliza o fetch
       setIsLoading(false)
     })
   }, [])
 
-  console.log(products)
 
-  const handleDeletePurchases = async () => {
+  const handleDeletePurchases = async () => { // função para deletar as compras
     try {
-      const response = await fetch(`http://localhost:8080/purchase`, {
+      const response = await fetch(`http://localhost:8080/purchase`, { // faz o fetch do front com o back para deletar as compras
         method: 'DELETE',
         headers: {
           'Content-Type': 'application/json',
         },
       })
 
-      if (!response.ok) {
+      if (!response.ok) { // caso a resposta não seja ok, lança um erro
         throw new Error('Erro ao finalizar a compra')
       }
 
       setProducts([]) 
-      router.push('/')
-      localStorage.clear("cart")
+      router.push('/') 
+      localStorage.clear("cart") 
     } catch (err) {
       console.error(err)
       toast.error(`Erro`, {
@@ -66,7 +65,7 @@ export default function ComprasPage() {
     } 
   }
 
-  if (isLoading) {
+  if (isLoading) { // se a página estiver carregando, exibe uma mensagem
     return (
       <div className="flex justify-center items-center h-screen">
         <span>Carregando...</span>
@@ -74,7 +73,7 @@ export default function ComprasPage() {
     )
   }
 
-  if (products!.length === 0) {
+  if (products!.length === 0) { // se não houver produtos, exibe uma mensagem
     return (
       <div className="flex justify-center items-center h-screen">
         <span>Você ainda não realizou nenhuma compra.</span>
@@ -82,10 +81,10 @@ export default function ComprasPage() {
     )
   }
 
-  return (
+  return ( // retorna a página de compras
     <div className="container p-4 max-w-2xl h-full">
       <h1 className="text-2xl font-bold text-gray-800">Minhas Compras</h1>
-      <p>Suas compras.</p>
+      <p>Itens que você ira comprar.</p>
       <div className="space-y-4 h-max overflow-y-auto max-h-96">
         {!products ? <p className="text-white">Sem nenhum item</p> :  products.map(product => (
           <div key={product.id} className="flex items-center justify-between bg-white p-4 rounded-lg shadow">

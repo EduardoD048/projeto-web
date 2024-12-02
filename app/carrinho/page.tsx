@@ -6,7 +6,7 @@ import { Button } from "@/components/ui/button"
 import { Toaster, toast } from "sonner";
 import { useRouter } from 'next/navigation';
 
-export interface Product {
+export interface Product { // interface para definir o tipo de produto
   id: number
   name: string
   description: string

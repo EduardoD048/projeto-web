@@ -3,7 +3,7 @@ import "./globals.css";
 import { Toaster } from "@/components/ui/sonner";
 import { Header } from "@/components/header";
 
-export const metadata: Metadata = {
+export const metadata: Metadata = {  // muda o titulo da pagina e a descrição
   title: "Home",
   description: "pagina inicial",
 };

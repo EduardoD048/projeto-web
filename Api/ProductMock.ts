@@ -1,4 +1,4 @@
-export const products = [
+export const products = [ // produtos
     {
         id: 1,
         name: 'Chaleira elétrica inox',
