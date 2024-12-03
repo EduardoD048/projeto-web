@@ -45,17 +45,17 @@ export default function Component() {
     });
   }
 
-  const proceedToPurchase = async () => { 
+  const proceedToPurchase = async () => {  // função para realizar a compra
     const cart = localStorage.getItem("cart")
 
     if (!cart) return
 
-    const parsedCart = JSON.parse(cart)
+    const parsedCart = JSON.parse(cart) 
 
     try {
-      setIsLoading (true)
+      setIsLoading (true) 
 
-      const response = await fetch(`http://localhost:8080/purchase`, {
+      const response = await fetch(`http://localhost:8080/purchase`, { // faz o fetch do front com o back para realizar a compra
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
@@ -69,11 +69,11 @@ export default function Component() {
         }))),
       })
 
-      if (!response.ok) {
+      if (!response.ok) { // tratamento de erro 
         throw new Error('Falha ao realizar a compra')
       }
 
-      toast.success(`Compra realizada com sucesso!`, {
+      toast.success(`Compra realizada com sucesso!`, { // tratamento
         description: `A compra foi um sucesso!`,
       });
 
@@ -89,7 +89,7 @@ export default function Component() {
   }
 
    
-  return (
+  return ( // retorna o carrinho de compras
     <div className="container p-4 max-w-2xl h-full">
       <h1 className="text-2xl font-bold mb-4">Carrinho de Compras</h1>
       <div className="space-y-4 h-max overflow-y-auto max-h-96">

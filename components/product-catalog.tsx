@@ -14,7 +14,7 @@ interface Product { // interface para definir o tipo de produto
 
 export default function ProductCatalog() { // função para exibir o catálogo de produtos
   const handleAddToCart = (product: (typeof products)[0]) => {
-    const existingCart = JSON.parse(localStorage.getItem("cart") || "[]");
+    const existingCart = JSON.parse(localStorage.getItem("cart") || "[]"); // pega o carrinho do localStorage
     const existingProductIndex = existingCart.findIndex(
       (item: Product) => item.id === product.id 
     );
@@ -33,7 +33,7 @@ export default function ProductCatalog() { // função para exibir o catálogo d
     });
   };
 
-  return ( // retorna o catálogo de produtos
+  return ( // retorna o catálogo de produtos 
     <div className="min-h-screen bg-gray-100">
       <main className="max-w-7xl mx-auto py-6 sm:px-6 lg:px-8">
         <div className="px-4 py-6 sm:px-0">

@@ -1,11 +1,11 @@
 import type { Metadata } from "next";
 
-export const metadata: Metadata = {
+export const metadata: Metadata = { // seta o titulo e a descrição da página
   title: "carrinho",
   description: "carrinho de compras",
 };
 
-export default function RootLayout({
+export default function RootLayout({ // componente para centralizar o conteúdo
   children,
 }: Readonly<{
   children: React.ReactNode;

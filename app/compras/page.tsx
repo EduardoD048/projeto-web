@@ -4,7 +4,7 @@ import { Button } from "@/components/ui/button";
 import { toast } from "sonner";
 import { useRouter } from 'next/navigation';
 
-interface Product { // interface para definir o tipo de produto
+interface Product { // interface para definir o tipo de produto do carrinho
   id: number
   name: string
   description: string
